@@ -15,8 +15,12 @@ $ composer install
 First step change token in files fo tests.
 ```$xslt
 $ php vendor/bin/phpunit --bootstrap vendor/autoload.php tests/unit/Services/UserTest.php
+$ php vendor/bin/phpunit --bootstrap vendor/autoload.php tests/unit/Services/ProxyTest.php
+$ php vendor/bin/phpunit --bootstrap vendor/autoload.php tests/unit/Services/OrderTest.php
 ```
 or
 ```$xslt
 $ "vendor/bin/phpunit" --bootstrap vendor/autoload.php tests/unit/Services/UserTest.php
+$ "vendor/bin/phpunit" --bootstrap vendor/autoload.php tests/unit/Services/ProxyTest.php
+$ "vendor/bin/phpunit" --bootstrap vendor/autoload.php tests/unit/Services/OrderTest.php
 ```

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Purt09\ProxyFamily\Exceprtion;
+namespace Purt09\ProxyFamily\Exception;
 
 
 use DomainException;

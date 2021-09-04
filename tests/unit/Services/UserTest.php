@@ -9,12 +9,26 @@ use PHPUnit\Framework\TestCase;
 
 class UserTest extends TestCase
 {
-    private $token = '218581_1630727515_8423e3e357a70dd0448ab4f2df4aff4eb8618b83';
+    private $token = '';
 
     public function testGetInfo(): void
     {
         $course = new User();
         $wallet_result = $course->getInfo($this->token);
         $this->assertNotNull($wallet_result['data']['user']);
+    }
+
+    public function testGetOrders(): void
+    {
+        $course = new User();
+        $wallet_result = $course->getOrders($this->token);
+        $this->assertNull($wallet_result['error']['code']);
+    }
+
+    public function testGetTransactions(): void
+    {
+        $course = new User();
+        $wallet_result = $course->getTransactions($this->token);
+        $this->assertNull($wallet_result['error']['code']);
     }
 }
