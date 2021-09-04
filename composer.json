@@ -10,6 +10,12 @@
       "url": "https://github.com/Purt09/proxy-family.git"
     }
   ],
+  "authors": [
+    {
+      "name": "Alexandr Purtov",
+      "email": "Alexpurtv@gmail.com"
+    }
+  ],
   "require": {
     "php": ">=7.2.0"
   },

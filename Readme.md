@@ -3,7 +3,7 @@ SDK for working with proxy-family
 ### From CLI
 ```$xslt
 $ composer config repositories.apirone vcs https://github.com/purt09/proxy-family.git
-$ composer require purt09/proxy-family:dev-master
+$ composer require purt09/proxy-family-php-sdk:dev-main
 ```
 ## Unit testing
 
