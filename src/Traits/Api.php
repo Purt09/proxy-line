@@ -9,6 +9,10 @@ trait Api
 
     private function post(string $url, string $token, array $params): array
     {
+        foreach ($params as $key => $param) {
+            if(is_null($param))
+                unset($params[$key]);
+        }
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_URL, $url);
@@ -16,10 +20,10 @@ trait Api
         $headers = [
             'Accept: application/json',
             'Api-Token: ' . $token,
-            'Content-Type: application/x-www-form-urlencoded'
+            'Content-Type: multipart/form-data'
         ];
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($params));
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
         $response = curl_exec($curl);
         curl_close($curl);
         if ($response) {
