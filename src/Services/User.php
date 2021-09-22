@@ -1,10 +1,10 @@
 <?php
 
 
-namespace Purt09\ProxyFamily\Services;
+namespace Purt09\ProxyLine\Services;
 
-use Purt09\ProxyFamily\Traits\Api;
-use Purt09\ProxyFamily\Interfaces\UserInterface;
+use Purt09\ProxyLine\Interfaces\UserInterface;
+use Purt09\ProxyLine\Traits\Api;
 
 class User implements UserInterface
 {
@@ -12,38 +12,31 @@ class User implements UserInterface
     use Api;
 
     const ENDPOINTS = [
-        'info' => 'user/info',
-        'getOrders' => 'user/get-orders',
-        'getTransactions' => 'user/get-transactions'
+        'balance' => 'balance',
+        'sites' => 'sites',
     ];
 
-    /**
-     * @param string $token
-     * @return array
-     */
-    public function getInfo(string $token): array
+    public function getBalance(string $token): array
     {
-        $url = $this->getURL(self::ENDPOINTS['info'], [], '');
-        return $this->post($url, $token,  []);
-    }
-
-    public function getOrders(string $token, int $pending = 0, int $order_id = 0, int $limit = 10, int $offset = 0): array
-    {
-        $url = $this->getURL(self::ENDPOINTS['getOrders'], [], '');
-        return $this->post($url, $token,  [
-            'pending' => $pending,
-            'order_id' => $order_id,
-            'limit' => $limit,
-            'offset' => $offset
+        $url = $this->getURL(self::ENDPOINTS['balance'], [], '');
+        return $this->get($url,  [
+            'api_key' => $token,
         ]);
     }
 
-    public function getTransactions(string $token, int $limit = 10, int $offset = 0): array
+    /**
+     *
+     * метод в доке есть, но сам отдает 404!
+     *
+     * @deprecated
+     * @param string $token
+     * @return array
+     */
+    public function getSites(string $token): array
     {
-        $url = $this->getURL(self::ENDPOINTS['getTransactions'], [], '');
-        return $this->post($url, $token,  [
-            'limit' => $limit,
-            'offset' => $offset
+        $url = $this->getURL(self::ENDPOINTS['sites'], [], '');
+        return $this->get($url,  [
+            'api_key' => $token,
         ]);
     }
 }

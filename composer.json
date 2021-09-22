@@ -1,13 +1,13 @@
 {
-  "name": "purt09/proxy-family-php-sdk",
-  "description": "Library for implement Proxy Family Api",
+  "name": "purt09/proxy-line-php-sdk",
+  "description": "Library for implement Proxy Line Api",
   "type": "library",
   "license": "MIT",
   "minimum-stability": "dev",
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/Purt09/proxy-family.git"
+      "url": "https://github.com/Purt09/proxy-line.git"
     }
   ],
   "authors": [
@@ -24,7 +24,7 @@
   },
   "autoload": {
     "psr-4": {
-      "Purt09\\ProxyFamily\\": "src/",
+      "Purt09\\ProxyLine\\": "src/",
       "Test\\": "tests/"
     }
   }

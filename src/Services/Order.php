@@ -1,29 +1,73 @@
 <?php
 
 
-namespace Purt09\ProxyFamily\Services;
+namespace Purt09\ProxyLine\Services;
 
-use Purt09\ProxyFamily\Interfaces\OrderInterface;
-use Purt09\ProxyFamily\Traits\Api;
+use Purt09\ProxyLine\Interfaces\OrderInterface;
+use Purt09\ProxyLine\Traits\Api;
 
 class Order implements OrderInterface
 {
+
     use Api;
 
     const ENDPOINTS = [
-        'create' => 'order/create',
+        'newOrder' => 'new-order',
+        'orders' => 'orders',
+        'order' => 'orders/%s/'
     ];
 
-    public function create(string $token, int $tariff_id, int $term_days, int $count, string $proxy_login = null, string $proxy_password = null): array
+    /**
+     * @param string $token
+     * @param string $type
+     * @param int $ip_version
+     * @param string $country
+     * @param int $quantity
+     * @param int $period
+     * @param string|null $coupon
+     * @param string|null $new_ips
+     * @param string|null $sites
+     * @return array
+     */
+    public function newOrder(string $token,
+                             string $type,
+                             int $ip_version,
+                             string $country,
+                             int $quantity,
+                             int $period,
+                             string $coupon = null,
+                             string $new_ips = null,
+                             string $sites = null): array
     {
-        $url = $this->getURL(self::ENDPOINTS['create'], [], '');
+        $url = $this->getURL(self::ENDPOINTS['newOrder'], [], '');
         return $this->post($url, $token, [
-                'tariff_id' => $tariff_id,
-                'term_days' => $term_days,
-                'count' => $count,
-                'proxy_login' => $proxy_login,
-                'proxy_password' => $proxy_password
-            ]
-        );
+            'type' => $type,
+            'ip_version' => $ip_version,
+            'country' => $country,
+            'quantity' => $quantity,
+            'period' => $period
+        ]);
+    }
+
+    public function getOrders(string $token,
+                              string $type = null,
+                              int $ip_version = null,
+                              string $country = null,
+                              string $date_after = null,
+                              string $date_before = null,
+                              string $date_end_after = null,
+                              string $date_end_before = null): array
+    {
+        $url = $this->getURL(self::ENDPOINTS['orders'], [], '');
+        return $this->get($url,  [
+            'api_key' => $token,
+            'type' => $type,
+            'ip_version' => $ip_version,
+            'country' => $country,
+            'date_after' => $date_after,
+            'date_before' => $date_before,
+            'date_end_after' => $date_end_after,
+            'date_end_before' => $date_end_before,
+        ]);
     }
 }

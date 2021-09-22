@@ -4,31 +4,24 @@
 namespace Test\unit\Services;
 
 
-use Purt09\ProxyFamily\Services\User;
 use PHPUnit\Framework\TestCase;
+use Purt09\ProxyLine\Services\User;
 
 class UserTest extends TestCase
 {
     private $token = '';
-
-    public function testGetInfo(): void
+    
+    public function testGetBalance()
     {
-        $course = new User();
-        $wallet_result = $course->getInfo($this->token);
-        $this->assertNotNull($wallet_result['data']['user']);
+        $ips = new User();
+        $result = $ips->getBalance($this->token);
+        $this->assertArrayHasKey('balance', $result);
+        $this->assertArrayHasKey('partner_balance', $result);
     }
 
-    public function testGetOrders(): void
+    public function testGetSites()
     {
-        $course = new User();
-        $wallet_result = $course->getOrders($this->token);
-        $this->assertNull($wallet_result['error']['code']);
-    }
-
-    public function testGetTransactions(): void
-    {
-        $course = new User();
-        $wallet_result = $course->getTransactions($this->token);
-        $this->assertNull($wallet_result['error']['code']);
+        $ips = new User();
+        $result = $ips->getSites($this->token);
     }
 }

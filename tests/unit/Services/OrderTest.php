@@ -4,17 +4,34 @@
 namespace Test\unit\Services;
 
 
-use Purt09\ProxyFamily\Services\Order;
 use PHPUnit\Framework\TestCase;
+use Purt09\ProxyLine\Services\Order;
+use Purt09\ProxyLine\Services\User;
 
 class OrderTest extends TestCase
 {
     private $token = '';
-
-    public function testCreate(): void
+    
+    public function testNewOrder()
     {
-        $order = new Order();
-        $result = $order->create($this->token, 6, 3,10);
-        $this->assertNull($result['error']['code']);
+        $ips = new Order();
+        $result = $ips->newOrder(
+            $this->token,
+            'dedicated',
+            6,
+            'ru',
+            1,
+            5
+        );
+        var_dump($result);
     }
+
+    public function testGetOrders()
+    {
+        $ips = new Order();
+        $result = $ips->getOrders(
+            $this->token
+        );
+    }
+
 }

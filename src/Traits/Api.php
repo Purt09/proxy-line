@@ -1,27 +1,35 @@
 <?php
 declare(strict_types=1);
 
-namespace Purt09\ProxyFamily\Traits;
+namespace Purt09\ProxyLine\Traits;
 
 trait Api
 {
-    static $API_URL = "https://www.proxy.family/api/";
+    static $API_URL = "https://panel.proxyline.net/api/";
 
     private function post(string $url, string $token, array $params): array
     {
         foreach ($params as $key => $param) {
-            if(is_null($param))
+            if (is_null($param))
                 unset($params[$key]);
         }
+        $gets = http_build_query(
+            [
+                'api_key' => $token
+            ]
+        );
+        $url .= '?' . $gets;
+        var_dump($url);
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
         curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, 1);
+        curl_setopt($curl, CURLOPT_POST, true);
         $headers = [
             'Accept: application/json',
-            'Api-Token: ' . $token,
             'Content-Type: multipart/form-data'
         ];
+
+        $params = json_encode($params);
         curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
         curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
         $response = curl_exec($curl);
