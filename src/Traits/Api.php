@@ -26,7 +26,7 @@ trait Api
                 'strict'=>true
             ]
         ]);
-        return json_decode($result->getBody()->getContents());
+        return json_decode($result->getBody()->getContents(), true);
     }
 
     private function get(string $url, array $params = [])
