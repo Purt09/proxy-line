@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Purt09\ProxyLine\Traits;
 
+use GuzzleHttp\Client;
+
 trait Api
 {
     static $API_URL = "https://panel.proxyline.net/api/";
@@ -13,31 +15,18 @@ trait Api
             if (is_null($param))
                 unset($params[$key]);
         }
-        $gets = http_build_query(
-            [
-                'api_key' => $token
+        $client = new Client([
+            'headers' => [
+                'API-KEY' => $token,
             ]
-        );
-        $url .= '?' . $gets;
-        var_dump($url);
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_POST, true);
-        $headers = [
-            'Accept: application/json',
-            'Content-Type: multipart/form-data'
-        ];
-
-        $params = json_encode($params);
-        curl_setopt($curl, CURLOPT_HTTPHEADER, $headers);
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $params);
-        $response = curl_exec($curl);
-        curl_close($curl);
-        if ($response) {
-            return json_decode($response, true);
-        }
-        return [];
+        ]);
+        $result = $client->post($url, [
+            'form_params' => $params,
+            'allow_redirects'=> [
+                'strict'=>true
+            ]
+        ]);
+        return json_decode($result->getBody()->getContents());
     }
 
     private function get(string $url, array $params = [])

@@ -10,7 +10,7 @@ use Purt09\ProxyLine\Services\User;
 
 class OrderTest extends TestCase
 {
-    private $token = '';
+    private $token = '2zvoe87kzjlbmfp32h24g1pbcj8d2vdd9ero2w7b';
     
     public function testNewOrder()
     {
@@ -23,7 +23,6 @@ class OrderTest extends TestCase
             1,
             5
         );
-        var_dump($result);
     }
 
     public function testGetOrders()
